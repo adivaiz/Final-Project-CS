@@ -1,0 +1,97 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% trans "Jewish Warrior Museum" %}</title>
+    <link rel="stylesheet" href="{% static 'mapapp/css/home.css' %}">
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="{% static 'mapapp/images/logo.svg' %}" alt="{% trans 'Museum Logo' %}">
+            </div>
+            <span class="logo-text">{% trans "Jewish Warrior Museum" %}</span>
+        </div>
+        
+        <div class="nav-buttons">
+            <!-- כפתור אתר ראשי -->
+            <!-- כפתור אתר ראשי -->
+            <form method="POST" style="margin: 0;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="website">
+                <button type="submit">{% trans "Main Website" %}</button>
+            </form>
+            <button id="dark-mode-toggle" class="flag-button" title="Toggle Dark Mode">
+                🌙
+            </button>
+            <!-- כפתור החלפת שפה עם דגל -->
+            <form method="POST" action="{% url 'set_language' %}" style="margin: 0;">
+                {% csrf_token %}
+                {% if LANGUAGE_CODE == "he" %}
+                    <input type="hidden" name="language" value="en">
+                    <input type="hidden" name="next" value="/en/">
+                    <button type="submit" class="flag-button" title="Switch to English">
+                        <img src="{% static 'mapapp/images/flag_us.png' %}" alt="English">
+                    </button>
+                {% else %}
+                    <input type="hidden" name="language" value="he">
+                    <input type="hidden" name="next" value="/he/">
+                    <button type="submit" class="flag-button" title="Switch to Hebrew">
+                        <img src="{% static 'mapapp/images/flag_il.png' %}" alt="עברית">
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+       
+    </nav>
+
+    <!-- Centered Title -->
+    <div class="centered-title">{% trans "Interactive Map" %}</div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+    <div class="map-buttons">
+        <!-- Buttons -->
+        <button id="show-timeline" class="timeline-button">
+            {% if LANGUAGE_CODE == 'he' %}  
+                ציר זמן אינטראקטיבי
+            {% else %}
+                Interactive Timeline
+            {% endif %}
+        </button>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="explore_map">
+            <button type="submit">{% trans "Explore the Map" %}</button>
+        </form>
+    </div>
+
+    <div class="buttons-container">
+        <a href="{% url 'ww2map' %}" class="action-button map-button">
+            <i class="action-icon map-icon"></i>
+            <span>מפה אינטראקטיבית</span>
+        </a>
+        
+        <a href="{% url 'dashboard' %}" class="action-button dashboard-button">
+            <i class="action-icon stats-icon"></i>
+            <span>נתונים וגרפים</span>
+        </a>
+        
+        <a href="https://www.jwmww2.org/" class="action-button website-button">
+            <i class="action-icon website-icon"></i>
+            <span>אתר המוזיאון</span>
+        </a>
+    </div>
+
+    <script src="{% static 'mapapp/js/home.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "ww2map-frontend",
+  "version": "1.0.0",
+  "description": "WW2 Map Application Frontend - Static assets and templates",
+  "main": "static/mapapp/js/index.js",
+  "scripts": {
+    "build": "echo 'No build process needed for static files'",
+    "dev": "echo 'Serving static files through Django backend'",
+    "lint:js": "eslint static/mapapp/js/**/*.js --fix",
+    "lint:css": "stylelint static/mapapp/css/**/*.css --fix"
+  },
+  "keywords": [
+    "ww2",
+    "map",
+    "historical",
+    "frontend",
+    "javascript",
+    "css",
+    "html"
+  ],
+  "author": "WW2 Map Team",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "stylelint": "^15.0.0"
+  },
+  "dependencies": {
+    "maplibre-gl": "^3.3.1"
+  }
+} 

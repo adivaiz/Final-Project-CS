@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jewish Warrior Museum</title>
+    <link rel="stylesheet" href="mapapp/static/mapapp/css/home.css">
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Jewish Warrior Museum</div>
+        <div class="nav-buttons">
+            <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="website">
+                <button type="submit">Main Website</button>
+            </form>
+            <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="change_language">
+                <input type="hidden" name="language" value="he">
+                <button type="submit">עברית</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Centered Title -->
+    <div class="centered-title">Interactive Map</div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+    <div class="map-buttons">
+        <!-- Time Range Form -->
+        <div class="form-container" id="time-range-form" style="display: none;">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" min="1939-09-01" max="1945-05-08" required>
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" min="1939-09-01" max="1945-05-08" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <!-- Buttons -->
+        <button id="show-time-range">Select Time Range</button>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="explore_map">
+            <button type="submit">Explore the Map</button>
+        </form>
+    </div>
+
+
+
+
+
+
+    <script src="mapapp/static/mapapp/js/home.js"></script>
+</body>
+</html>
